@@ -21,7 +21,7 @@ res = 0
 while True:
 
     #Perfect in Twitches Cinema-Mode
-    cap = ImageGrab.grab(bbox=(1026, 900, 1535, 951)
+    cap = ImageGrab.grab(bbox=(1026, 900, 1535, 951))
     gray = ImageOps.grayscale(cap)
     cap_arr = np.array(gray)
 
