@@ -19,7 +19,7 @@ from PIL import ImageGrab
 while True:
 
     #Perfect in Twitches Cinema-Mode
-    cap = ImageGrab.grab(bbox=(1020, 950, 1550, 992))
+    cap = ImageGrab.grab(bbox=(1020, 900, 1550, 992))
     cap_arr = np.array(cap)
 
 
