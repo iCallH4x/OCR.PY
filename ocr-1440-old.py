@@ -18,24 +18,21 @@ from PIL import ImageGrab
 
 while True:
 
-    #Perfect in Twitches Cinema-Mode
+    # Perfect in Twitches Cinema-Mode
     cap = ImageGrab.grab(bbox=(1370, 1224, 2099, 1281))
     cap_arr = np.array(cap)
 
-
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
 
     text = pytesseract.image_to_string(cap)
 
-
     text = text.strip()
-
 
     if len(text) > 20:
         print(text)
         pyperclip.copy(text)
-
 
     if cv2.waitKey(1) == 27:
         break

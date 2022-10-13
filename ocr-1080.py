@@ -7,6 +7,8 @@ from PIL import ImageGrab, ImageOps
 import time
 import re
 
+from config import TESSERACT_DIR
+
 # You need Python
 # and some libraries
 # pip install opencv-python
@@ -16,28 +18,26 @@ import re
 
 # pip install pytesseract
 # also read https://pypi.org/project/pytesseract/
+
 res = 0
 
 while True:
 
-    #Perfect in Twitches Cinema-Mode
+    # Perfect in Twitches Cinema-Mode
     cap = ImageGrab.grab(bbox=(1026, 900, 1535, 951))
     gray = ImageOps.grayscale(cap)
     cap_arr = np.array(gray)
 
-
     cv2.imshow("", cap_arr)
 
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-    
-    text = pytesseract.image_to_string(cap_arr)
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_DIR
 
+    text = pytesseract.image_to_string(cap_arr)
 
     text = text.strip()
 
-
     if len(text) > 20:
-        if re.match("^.*(([\w\d]{5}-?){4}).*$",text):
+        if re.match("^.*(([\w\d]{5}-?){4}).*$", text):
             if res == 0:
                 print("1 Got Text " + text)
                 cache = text
@@ -50,7 +50,7 @@ while True:
 
                 time.sleep(10)
             elif res == 1 and cache != text:
-                print("3 Unsure Retry " + cache + ' ' + text)
+                print("3 Unsure Retry " + cache + " " + text)
                 res = 0
                 time.sleep(0.25)
             else:
