@@ -1,5 +1,6 @@
 .venv/
 __pycache__/
-ocr.spec
 build/
 dist/
+
+ocr.spec
