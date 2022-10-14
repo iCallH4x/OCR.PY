@@ -3,7 +3,7 @@ import numpy as np
 import pytesseract
 import pyperclip
 import pyautogui
-import os
+import os, sys
 
 from PIL import ImageGrab, ImageOps
 import time
@@ -15,20 +15,15 @@ from config import TESSERACT_DIR
 res = 0
 ocr = True
 
-while True:
+# Get Platform by sys.platform, linux = linux, darwin = mac (for some reason I cba to research)
+if sys.platform == "linux" or sys.platform == "darwin":
+    pytesseract.pytesseract.tesseract_cmd = 'tesseract'
+else:
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_DIR
 
-    # ask user if they are on windows
-    if res == 0:
-        res = input("Are you on Windows? (y/n)")
-
+while ocr:
     # ask user if they would like to loop the ocr
-    if ocr == True:
-        ocr = input("Would you like to constantly update the clipboard? Type 'y' if you are trying to snipe keys (y/n)")
-    
-    if res == "y": # Windows
-        pytesseract.pytesseract.tesseract_cmd = TESSERACT_DIR
-    else : # Linux/Mac
-        pytesseract.pytesseract.tesseract_cmd = 'tesseract'
+    ocr = input("Would you like to constantly update the clipboard? Type 'y' if you are trying to snipe keys (y/n)").lower()
     break
 
 clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
