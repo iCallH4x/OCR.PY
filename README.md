@@ -1,4 +1,8 @@
 # OCR-PY
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Python Version: 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
+[![GitHub contributors](https://img.shields.io/github/contributors/iCallH4x/OCR-PY)](https://github.com/iCallH4x/OCR-PY/graphs/contributors)
+
 Initially created by [Crennis](https://github.com/crennis) for PCBS2 key sniping.
 
 # Easy Usage Tutorial (*Windows*)

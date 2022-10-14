@@ -1,66 +1,68 @@
-import cv2
 import numpy as np
-import pytesseract
-import pyperclip
-import pyautogui
-import os
+import pyperclip, pyautogui, pytesseract
+import os, sys, cv2, time
 
-from PIL import ImageGrab, ImageOps
-import time
-import re
+from PIL import ImageGrab
 from pynput import keyboard
 
 from config import TESSERACT_DIR
 
+
 res = 0
-ocr = True
+ocr = ""
 
-while True:
+# Get Platform by sys.platform, linux = linux, darwin = mac (for some reason I cba to research)
+if sys.platform == "linux" or sys.platform == "darwin":
+    pytesseract.pytesseract.tesseract_cmd = "tesseract"
+else:
+    pytesseract.pytesseract.tesseract_cmd = TESSERACT_DIR
 
-    # ask user if they are on windows
-    if res == 0:
-        res = input("Are you on Windows? (y/n)")
-
+while len(ocr) < 1:
     # ask user if they would like to loop the ocr
-    if ocr == True:
-        ocr = input("Would you like to constantly update the clipboard? Type 'y' if you are trying to snipe keys (y/n)")
-    
-    if res == "y": # Windows
-        pytesseract.pytesseract.tesseract_cmd = TESSERACT_DIR
-    else : # Linux/Mac
-        pytesseract.pytesseract.tesseract_cmd = 'tesseract'
-    break
+    ocr = input(
+        "Would you like to constantly update the clipboard? Type 'y' if you are trying to snipe keys (y/n)"
+    ).lower()
 
-clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+
+clearConsole = lambda: os.system("cls" if os.name in ("nt", "dos") else "clear")
+
 
 def on_press(key):
     if key == keyboard.Key.esc:
         return False
+
+
 def wait_for_esc():
-    with keyboard.Listener(
-        on_press=on_press) as listener:
+    with keyboard.Listener(on_press=on_press) as listener:
         listener.join()
+
 
 def coords():
 
-    print('-----------------------------------')
-    print('              OCR.py               ')
-    print('-----------------------------------\n')
-    print('To get started you have to point your mouse in the first corner\nwhere you would like the tool to scan and confirm with the ESC-Key')
+    print("-----------------------------------")
+    print("              OCR.py               ")
+    print("-----------------------------------\n")
+    print(
+        "To get started you have to point your mouse in the first corner\nwhere you would like the tool to scan and confirm with the ESC-Key"
+    )
     wait_for_esc()
-    x1,y1 = pyautogui.position()
-    print('Corner 1 set. Now move to the 2nd corner and confirm with ESC')
+    x1, y1 = pyautogui.position()
+    print("Corner 1 set. Now move to the 2nd corner and confirm with ESC")
     wait_for_esc()
-    x2,y2 = pyautogui.position()
-    print('Corner 2 set.')
+    x2, y2 = pyautogui.position()
+    print("Corner 2 set.")
     clearConsole()
-    print('----------------------------------------------------')
-    print('Got Following Positions:')
-    print('Corner 1 x: %s y: %s , Corner 2: x: %s y: %s'%(str(x1),str(y1),str(x2),str(y2)))
-    print('----------------------------------------------------\n')
-    return x1,y1,x2,y2
+    print("----------------------------------------------------")
+    print("Got Following Positions:")
+    print(
+        "Corner 1 x: %s y: %s , Corner 2: x: %s y: %s"
+        % (str(x1), str(y1), str(x2), str(y2))
+    )
+    print("----------------------------------------------------\n")
+    return x1, y1, x2, y2
 
-x1,y1,x2,y2 = coords()
+
+x1, y1, x2, y2 = coords()
 
 cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
 cap_arr = np.array(cap)
@@ -82,5 +84,3 @@ if ocr == "y":
         time.sleep(0.1)
 
 cv2.destroyAllWindows()
-
-
