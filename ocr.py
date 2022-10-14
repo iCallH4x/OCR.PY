@@ -2,8 +2,7 @@ import numpy as np
 import pyperclip, pyautogui, pytesseract
 import os, sys, cv2, time
 
-from PIL import ImageGrab, ImageOps
-import re
+from PIL import ImageGrab
 from pynput import keyboard
 
 from config import TESSERACT_DIR
