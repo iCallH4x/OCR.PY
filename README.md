@@ -21,6 +21,3 @@ You will also need to download and install tesseract-ocr with your chosen packag
 ```bash
 sudo apt install tesseract
 ```
-# Script difference
-
-The scripts with the suffix -old are the versions as seen in the video. The scripts without -old are currently experimental but will have more QoL features, such as regex string verification and a grayscale window to clearly view the key.
