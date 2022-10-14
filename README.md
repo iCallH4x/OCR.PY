@@ -1,7 +1,5 @@
 # OCR-PY
-Originally created by Crennis for PCBS2 stream
-
-Tutorial: https://www.youtube.com/watch?v=hjUjylNEtNY&t=1s
+Initially created by [Crennis](https://github.com/crennis) for PCBS2 key sniping.
 
 # Easy Usage Tutorial (*Windows*)
 
