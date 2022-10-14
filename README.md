@@ -3,7 +3,7 @@ Initially created by [Crennis](https://github.com/crennis) for PCBS2 key sniping
 
 # Easy Usage Tutorial (*Windows*)
 
-1. Download [tesseract-ocr](https://github.com/UB-Mannheim/tesseract/wiki). The file should be at the top of the page, named *similar* to tesseract-ocr-w64-setup-vxxxxxxxxx.exe.
+1. Download [tesseract-ocr](https://github.com/UB-Mannheim/tesseract/wiki). The file should be at the top of the page, named *similar* to tesseract-ocr-w64-setup-vxxxxxxxxx.exe. Make sure you download the correct version for your machine (generally 64bit).
 2. Run the installer and just press next the whole way through. DO NOT CHANGE THE INSTALL LOCATION OR THE SCRIPT WILL NOT WORK
 3. Download the latest pre-built ocr.py binary from [releases](https://github.com/iCallH4x/OCR-PY/releases)
 4. Run the file
