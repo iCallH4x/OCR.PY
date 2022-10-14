@@ -9,7 +9,7 @@ from config import TESSERACT_DIR
 
 
 res = 0
-ocr = True
+ocr = ""
 
 # Get Platform by sys.platform, linux = linux, darwin = mac (for some reason I cba to research)
 if sys.platform == "linux" or sys.platform == "darwin":
@@ -17,12 +17,12 @@ if sys.platform == "linux" or sys.platform == "darwin":
 else:
     pytesseract.pytesseract.tesseract_cmd = TESSERACT_DIR
 
-while ocr:
+while len(ocr) < 1:
     # ask user if they would like to loop the ocr
     ocr = input(
         "Would you like to constantly update the clipboard? Type 'y' if you are trying to snipe keys (y/n)"
     ).lower()
-    break
+
 
 clearConsole = lambda: os.system("cls" if os.name in ("nt", "dos") else "clear")
 
