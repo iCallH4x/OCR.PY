@@ -10,7 +10,7 @@ To install the required packages, run:
 ```py
 py -m pip install -r requirements.txt
 ```
-You will also need to download and install [tesseract-ocr](https://github.com/tesseract-ocr/tesseract#installing-tesseract)
+You will also need to download and install [tesseract-ocr](https://github.com/UB-Mannheim/tesseract/wiki)
 
 # Requirements - Linux
 To install the required packages, run:
