@@ -1,8 +1,8 @@
 import numpy as np
 import pyperclip, pyautogui, pytesseract
-import os, sys, time, signal
+import os, sys, time, cv2
 
-from PIL import ImageGrab
+from PIL import ImageGrab, ImageOps
 from pynput import keyboard
 from functools import partial
 from config import TESSERACT_DIR
@@ -12,7 +12,7 @@ ImageGrab.grab = partial(ImageGrab.grab, all_screens=True)
 res = 0
 ocr = ""
 
-# Get Platform by sys.platform, linux = linux, darwin = mac (for some reason I cba to research)
+# Get platform by sys.platform, linux = linux, darwin = mac, else is Windows because who uses anything else?
 if sys.platform == "linux" or sys.platform == "darwin":
     pytesseract.pytesseract.tesseract_cmd = "tesseract"
 else:
@@ -69,20 +69,25 @@ def main():
     cap_arr = np.array(cap)
     text = pytesseract.image_to_string(cap)
     text = text.strip()
-    if len(text) > 20:
-        print(text)
-        pyperclip.copy(text)
+
+    print(text)
+    pyperclip.copy(text)
 
     if ocr == "y":
         while True:
             cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-            cap_arr = np.array(cap)
-            text = pytesseract.image_to_string(cap)
+            gray = ImageOps.grayscale(cap)
+            cap_arr = np.array(gray)
+            cv2.imshow("", cap_arr)
+            text = pytesseract.image_to_string(cap_arr)
             text = text.strip()
-            if len(text) > 20:
+
+            if len(text) > 12:
                 print(text)
                 pyperclip.copy(text)
             time.sleep(0.1)
+            if cv2.waitKey(1) == 27:
+                sys.exit()
     
     run_again = input("Would you like to run the script again? (y/n)").lower()
     if run_again == "y":
@@ -92,3 +97,4 @@ def main():
 
 main()
 
+cv2.destroyAllWindows()
