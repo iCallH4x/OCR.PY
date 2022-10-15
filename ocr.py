@@ -1,6 +1,6 @@
 import numpy as np
 import pyperclip, pyautogui, pytesseract
-import os, sys, cv2, time
+import os, sys, time, signal
 
 from PIL import ImageGrab
 from pynput import keyboard
@@ -26,7 +26,6 @@ while len(ocr) < 1:
 
 clearConsole = lambda: os.system("cls" if os.name in ("nt", "dos") else "clear")
 
-
 def on_press(key):
     if key == keyboard.Key.esc:
         return False
@@ -35,6 +34,7 @@ def on_press(key):
 def wait_for_esc():
     with keyboard.Listener(on_press=on_press) as listener:
         listener.join()
+
 
 
 def coords():
@@ -55,32 +55,39 @@ def coords():
     print("----------------------------------------------------")
     print("Got Following Positions:")
     print(
-        "Corner 1 x: %s y: %s , Corner 2: x: %s y: %s"
-        % (str(x1), str(y1), str(x2), str(y2))
-    )
+            "Corner 1 x: %s y: %s , Corner 2: x: %s y: %s"
+            % (str(x1), str(y1), str(x2), str(y2))
+        )
     print("----------------------------------------------------\n")
     return x1, y1, x2, y2
 
+def main():
+    x1, y1, x2, y2 = coords()
 
-x1, y1, x2, y2 = coords()
+    cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
+    cap_arr = np.array(cap)
+    text = pytesseract.image_to_string(cap)
+    text = text.strip()
+    if len(text) > 20:
+        print(text)
+        pyperclip.copy(text)
 
-cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-cap_arr = np.array(cap)
-text = pytesseract.image_to_string(cap)
-text = text.strip()
-if len(text) > 20:
-    print(text)
-    pyperclip.copy(text)
+    if ocr == "y":
+        while True:
+            cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
+            cap_arr = np.array(cap)
+            text = pytesseract.image_to_string(cap)
+            text = text.strip()
+            if len(text) > 20:
+                print(text)
+                pyperclip.copy(text)
+            time.sleep(0.1)
+    
+    run_again = input("Would you like to run the script again? (y/n)").lower()
+    if run_again == "y":
+            main()
+    else:
+        sys.exit()
 
-if ocr == "y":
-    while True:
-        cap = ImageGrab.grab(bbox=(x1, y1, x2, y2))
-        cap_arr = np.array(cap)
-        text = pytesseract.image_to_string(cap)
-        text = text.strip()
-        if len(text) > 20:
-            print(text)
-            pyperclip.copy(text)
-        time.sleep(0.1)
+main()
 
-cv2.destroyAllWindows()
