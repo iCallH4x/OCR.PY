@@ -4,9 +4,10 @@ import os, sys, time, signal
 
 from PIL import ImageGrab
 from pynput import keyboard
-
+from functools import partial
 from config import TESSERACT_DIR
 
+ImageGrab.grab = partial(ImageGrab.grab, all_screens=True)
 
 res = 0
 ocr = ""
