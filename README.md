@@ -1,4 +1,4 @@
-# OCR-PY
+# OCR.py
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Python Version: 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
 [![GitHub contributors](https://img.shields.io/github/contributors/iCallH4x/OCR-PY)](https://github.com/iCallH4x/OCR-PY/graphs/contributors)
@@ -9,7 +9,7 @@ Initially created by [Crennis](https://github.com/crennis) for PCBS2 key sniping
 
 1. Download [tesseract-ocr](https://github.com/UB-Mannheim/tesseract/wiki). The file should be at the top of the page, named *similar* to tesseract-ocr-w64-setup-vxxxxxxxxx.exe. Make sure you download the correct version for your machine (generally 64bit).
 2. Run the installer and just press next the whole way through. DO NOT CHANGE THE INSTALL LOCATION OR THE SCRIPT WILL NOT WORK
-3. Download the latest pre-built ocr.py binary from [releases](https://github.com/iCallH4x/OCR-PY/releases)
+3. Download the latest pre-built OCR.py binary from [releases](https://github.com/iCallH4x/OCR-PY/releases)
 4. Run the file
 5. Profit
 
